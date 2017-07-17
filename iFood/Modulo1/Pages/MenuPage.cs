@@ -1,7 +1,6 @@
 ﻿using System;
-
-using Xamarin.Forms;
 using Modulo1.Pages.Garcons;
+using Xamarin.Forms;
 
 
 namespace Modulo1.Pages {

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>{F237665C-3F8E-45D6-B15C-11E8038F1B51}</SharedGUID>
+    <SharedGUID>{F4EBF73E-0971-4382-B2FC-50FD0C481807}</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>Modulo1</Import_RootNamespace>

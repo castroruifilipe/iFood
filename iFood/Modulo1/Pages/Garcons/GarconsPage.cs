@@ -20,4 +20,3 @@ namespace Modulo1.Pages.Garcons {
         }
     }
 }
-

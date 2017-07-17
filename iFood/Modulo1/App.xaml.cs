@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-
-using Xamarin.Forms;
 using Modulo1.Pages;
+using Xamarin.Forms;
 
 namespace Modulo1
 {
@@ -12,8 +11,9 @@ namespace Modulo1
 
         public static IDictionary<string, string> LoginParameters => null;
 
-        public App() {
-            MainPage = new MenuPage();
+        public App()
+        {
+            MainPage = new NavigationPage(new MenuPage());
         }
 
         public static void SetMainPage()

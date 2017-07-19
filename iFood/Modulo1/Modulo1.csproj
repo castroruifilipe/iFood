@@ -45,6 +45,21 @@
     <EmbeddedResource Include="Pages\Entregadores\EntregadoresNewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Garcons\GarconsListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Garcons\GarconsNewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\TiposItensMenu\TiposItensMenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\TiposItensMenu\TiposItensMenuListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\TiposItensMenu\TiposItensMenuNewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -71,6 +86,25 @@
     <Compile Include="Pages\Entregadores\EntregadoresNewPage.xaml.cs">
       <DependentUpon>EntregadoresNewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Garcon.cs" />
+    <Compile Include="Pages\Garcons\GarconsListPage.xaml.cs">
+      <DependentUpon>GarconsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Garcons\GarconsNewPage.xaml.cs">
+      <DependentUpon>GarconsNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dal\GarconDAL.cs" />
+    <Compile Include="Models\TipoItemMenu.cs" />
+    <Compile Include="Pages\TiposItensMenu\TiposItensMenuPage.xaml.cs">
+      <DependentUpon>TiposItensMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TiposItensMenu\TiposItensMenuListPage.xaml.cs">
+      <DependentUpon>TiposItensMenuListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TiposItensMenu\TiposItensMenuNewPage.xaml.cs">
+      <DependentUpon>TiposItensMenuNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dal\TipoItemMenuDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -92,6 +126,7 @@
     <Folder Include="Pages\" />
     <Folder Include="Pages\Garcons\" />
     <Folder Include="Pages\Entregadores\" />
+    <Folder Include="Pages\TiposItensMenu\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

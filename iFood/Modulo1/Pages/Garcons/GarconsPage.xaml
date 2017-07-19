@@ -1,5 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Modulo1.Pages.Garcons.GarconsPage">
-	<ContentPage.Content>
-	</ContentPage.Content>
-</ContentPage>
+<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ep="clr-namespace:Modulo1.Pages.Garcons;assembly=Modulo1" x:Class="Modulo1.Pages.Garcons.GarconsPage">
+    <TabbedPage.Children>
+        <ep:GarconsListPage Title="Listagem" Icon = "icone_list.png" x:Name="listagem"/>
+        <ep:GarconsNewPage Title="Inserir novo" Icon = "icone_new.png" x:Name="inserir"/>
+    </TabbedPage.Children>
+</TabbedPage>

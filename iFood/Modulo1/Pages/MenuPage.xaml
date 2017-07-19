@@ -10,5 +10,8 @@
         <Button Text="Entregadores"
             Image="icone_entregadores.png"
             Clicked="EntregadoresOnClicked"/>
+        <Button Text="Tipos de items"
+            Image="icone_tipositensmenu.png"
+            Clicked="TiposItensMenuOnClicked"/>
     </StackLayout>
 </ContentPage>

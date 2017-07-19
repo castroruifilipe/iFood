@@ -9,7 +9,7 @@ namespace Modulo1.Pages.TiposItensMenu {
 
         private TipoItemMenuDAL dalTipoItemMenu = TipoItemMenuDAL.GetInstance();
 
-
+       
         public TiposItensMenuListPage() {
             InitializeComponent();
             lvTiposItensMenu.ItemsSource = dalTipoItemMenu.GetAll();

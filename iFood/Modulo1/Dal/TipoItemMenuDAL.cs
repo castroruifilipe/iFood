@@ -41,5 +41,13 @@ namespace Modulo1.Dal {
         public void Add(TipoItemMenu tipoItemMenu) {
             this.TipoItensMenu.Add(tipoItemMenu);
         }
+
+        public void Remove(TipoItemMenu tipoItemMenu) {
+            this.TipoItensMenu.Remove(tipoItemMenu);
+        }
+
+        public void Update(TipoItemMenu tipoItemMenu) {
+            this.TipoItensMenu[this.TipoItensMenu.IndexOf(tipoItemMenu)] = tipoItemMenu;
+        }
     }
 }

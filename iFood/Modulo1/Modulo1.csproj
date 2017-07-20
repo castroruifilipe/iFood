@@ -60,6 +60,9 @@
     <EmbeddedResource Include="Pages\TiposItensMenu\TiposItensMenuNewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\TiposItensMenu\TiposItensMenuEditPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -105,6 +108,9 @@
       <DependentUpon>TiposItensMenuNewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dal\TipoItemMenuDAL.cs" />
+    <Compile Include="Pages\TiposItensMenu\TiposItensMenuEditPage.xaml.cs">
+      <DependentUpon>TiposItensMenuEditPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

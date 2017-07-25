@@ -5,13 +5,15 @@ using Xamarin.Forms;
 using System.Linq;
 using Plugin.Media;
 using PCLStorage;
+using System.IO;
+using Modulo1.Models;
 
 namespace Modulo1.Pages.TiposItensMenu {
     
     public partial class TiposItensMenuNewPage : ContentPage {
 
-        private TipoItemMenuDAL dalTiposItensMenu = TipoItemMenuDAL.GetInstance();
-        private string caminhoArquivo;
+        private TipoItemMenuDAL dalTiposItensMenu = new TipoItemMenuDAL();
+        private byte[] bytesFoto;
 
 
         public TiposItensMenuNewPage() {
@@ -22,7 +24,7 @@ namespace Modulo1.Pages.TiposItensMenu {
         }
 
         private void PreparaParaNovoTipoItemMenu() {
-            var novoId = dalTiposItensMenu.GetAll().Max(x => x.Id) + 1;
+            var novoId = dalTiposItensMenu.GetAll().Max(x => x.TipoItemMenuId) + 1;
             idtipoitemmenu.Text = novoId.ToString().Trim();
             nome.Text = string.Empty;
             fototipoitemmenu.Source = null;
@@ -39,21 +41,22 @@ namespace Modulo1.Pages.TiposItensMenu {
 
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() {
                     Directory = FileSystem.Current.LocalStorage.Name,
-                    Name = "tipoitem_" + idparafoto + ".jpg",
-                    SaveToAlbum = true
+                    Name = "tipoitem_" + idparafoto + ".jpg"
                 });
-
                 if (file == null) {
                     return;
                 }
 
-                caminhoArquivo = file.Path;
+                var stream = file.GetStream();
+                var memoryStream = new MemoryStream();
+                stream.CopyTo(memoryStream);
 
                 fototipoitemmenu.Source = ImageSource.FromStream(() => {
-                    var stream = file.GetStream();
+                    var s = file.GetStream();
                     file.Dispose();
-                    return stream;
+                    return s;
                 });
+                bytesFoto = memoryStream.ToArray();
             };
         }
 
@@ -67,26 +70,20 @@ namespace Modulo1.Pages.TiposItensMenu {
                 }
 
                 var file = await CrossMedia.Current.PickPhotoAsync();
-
                 if (file == null) {
                     return;
                 }
 
-                var getArquivoPCL = FileSystem.Current.GetFileFromPathAsync(file.Path);
-
-                var rootFolder = FileSystem.Current.LocalStorage;
-
-                var folderFoto = await rootFolder.CreateFolderAsync("Fotos", CreationCollisionOption.OpenIfExists);
-
-                var setArquivoPCL = folderFoto.CreateFileAsync(getArquivoPCL.Result.Name, CreationCollisionOption.ReplaceExisting);
-
-                caminhoArquivo = setArquivoPCL.Result.Path;
+                var stream = file.GetStream();
+                var memoryStream = new MemoryStream();
+                stream.CopyTo(memoryStream);
 
                 fototipoitemmenu.Source = ImageSource.FromStream(() => {
-                    var stream = file.GetStream();
+                    var s = file.GetStream();
                     file.Dispose();
-                    return stream;
+                    return s;
                 });
+                bytesFoto = memoryStream.ToArray();
             };
         }
 
@@ -94,10 +91,9 @@ namespace Modulo1.Pages.TiposItensMenu {
             if (nome.Text.Trim() == string.Empty) {
                 this.DisplayAlert("Erro", "Você precisa informar o nome para o novo tipo de item do menu.", "OK");
             } else {
-                dalTiposItensMenu.Add(new Models.TipoItemMenu() {
-                    Id = Convert.ToUInt32(idtipoitemmenu.Text),
+                dalTiposItensMenu.Add(new TipoItemMenu() {
                     Nome = nome.Text,
-                    CaminhoArquivoFoto = caminhoArquivo
+                    Foto = bytesFoto
                 });
                 PreparaParaNovoTipoItemMenu();
             }

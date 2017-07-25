@@ -1,53 +1,46 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using Modulo1.Models;
+using Modulo1.Infraestructure;
+using SQLite.Net;
+using Xamarin.Forms;
+using System.Linq;
+using SQLiteNetExtensions.Extensions;
 
 namespace Modulo1.Dal {
     
     public class TipoItemMenuDAL {
 
-        private ObservableCollection<TipoItemMenu> TipoItensMenu = new ObservableCollection<TipoItemMenu>();
-        private static TipoItemMenuDAL TipoItemMenuInstance = new TipoItemMenuDAL();
+        private SQLiteConnection sqlConnection;
 
-        private TipoItemMenuDAL() {
-            TipoItensMenu.Add(new TipoItemMenu() {
-                Id = 1, Nome = "Pizzas", CaminhoArquivoFoto = "pizzas.png"
-            });
-            TipoItensMenu.Add(new TipoItemMenu() {
-                Id = 2, Nome = "Bebidas", CaminhoArquivoFoto = "bebidas.png"
-            });
-            TipoItensMenu.Add(new TipoItemMenu() {
-                Id = 3, Nome = "Saladas", CaminhoArquivoFoto = "saladas.png"
-            });
-            TipoItensMenu.Add(new TipoItemMenu() {
-                Id = 4, Nome = "Sanduíches", CaminhoArquivoFoto = "sanduiches.png"
-            });
-            TipoItensMenu.Add(new TipoItemMenu() {
-                Id = 5, Nome = "Sobremesas", CaminhoArquivoFoto = "sobremesas.png"
-            });
-            TipoItensMenu.Add(new TipoItemMenu() {
-                Id = 6, Nome = "Carnes", CaminhoArquivoFoto = "carnes.png"
-            });
+
+        public TipoItemMenuDAL() {
+            this.sqlConnection = DependencyService.Get<IDatabaseConnection>().DbConnection();
+			this.sqlConnection.CreateTable<TipoItemMenu>();
         }
 
-        public static TipoItemMenuDAL GetInstance() {
-            return TipoItemMenuInstance;
+        public IEnumerable<TipoItemMenu> GetAll() {
+            return (from t in sqlConnection.Table<TipoItemMenu>() select t).OrderBy(i => i.Nome).ToList();
+        }
+		
+        public IEnumerable<TipoItemMenu> GetAllWithChildren() {
+            return sqlConnection.GetAllWithChildren<TipoItemMenu>().OrderBy(i => i.Nome).ToList();
         }
 
-        public ObservableCollection<TipoItemMenu> GetAll() {
-            return TipoItensMenu;
+        public TipoItemMenu GetItemById(long id) {
+            return sqlConnection.Table<TipoItemMenu>().FirstOrDefault(t => t.TipoItemMenuId == id);
+        }
+
+        public void DeleteById(long id) {
+            sqlConnection.Delete<TipoItemMenu>(id);
         }
 
         public void Add(TipoItemMenu tipoItemMenu) {
-            this.TipoItensMenu.Add(tipoItemMenu);
-        }
-
-        public void Remove(TipoItemMenu tipoItemMenu) {
-            this.TipoItensMenu.Remove(tipoItemMenu);
+            sqlConnection.Insert(tipoItemMenu);
         }
 
         public void Update(TipoItemMenu tipoItemMenu) {
-            this.TipoItensMenu[this.TipoItensMenu.IndexOf(tipoItemMenu)] = tipoItemMenu;
+            sqlConnection.Update(tipoItemMenu);
         }
     }
 }

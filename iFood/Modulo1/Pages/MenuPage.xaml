@@ -14,5 +14,8 @@
         <Button Text="Tipos de items"
             Image="icone_tipositensmenu.png"
             Clicked="TiposItensMenuOnClicked"/>
+        <Button Text="Itens de Menu"
+            Image="icone_itensmenu.png"
+            Clicked="ItensMenuOnClicked"/>
     </StackLayout>
 </ContentPage>

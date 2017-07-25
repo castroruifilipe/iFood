@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Modulo1.Dal;
 using Modulo1.Models;
 using Xamarin.Forms;
@@ -8,12 +7,11 @@ namespace Modulo1.Pages.TiposItensMenu {
     
     public partial class TiposItensMenuListPage : ContentPage {
 
-        private TipoItemMenuDAL dalTipoItemMenu = TipoItemMenuDAL.GetInstance();
+        private TipoItemMenuDAL dalTipoItemMenu = new TipoItemMenuDAL();
 
        
         public TiposItensMenuListPage() {
             InitializeComponent();
-            lvTiposItensMenu.ItemsSource = dalTipoItemMenu.GetAll();
         }
 
         public async void OnRemoverClick(object sender, EventArgs e) {
@@ -22,7 +20,8 @@ namespace Modulo1.Pages.TiposItensMenu {
 
             var opcao = await DisplayAlert("Confirmação de remoção", "Confirma remover o item " + item.Nome.ToUpper() + "?", "Sim", "Não");
             if (opcao == true) {
-                dalTipoItemMenu.Remove(item);
+                dalTipoItemMenu.DeleteById((long)item.TipoItemMenuId);
+                lvTiposItensMenu.ItemsSource = dalTipoItemMenu.GetAll();
             }
         }
 
@@ -30,6 +29,11 @@ namespace Modulo1.Pages.TiposItensMenu {
             var mi = ((MenuItem)sender);
             var item = mi.CommandParameter as TipoItemMenu;
             await Navigation.PushModalAsync(new TiposItensMenuEditPage(item));
+        }
+
+        protected override void OnAppearing() {
+            base.OnAppearing();
+            lvTiposItensMenu.ItemsSource = dalTipoItemMenu.GetAll();
         }
     }
 }
